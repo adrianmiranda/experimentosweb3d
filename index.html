@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Sample Three.js</title>
+		<style>
+			#screen{
+				background: url('textures/dieantwoord.gif');
+				width: 500px;
+				height: 500px;
+			}
+			.box{
+				width: 5px;
+				height: 5px;
+				background-color:black;
+				position: absolute;
+				
+			}
+			
+		</style>
+	</head>
+	<body>
+		<!--<div id="screen"></div>-->
+		<div id="box"></div>
+		<div id="box2"></div>
+	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+	<script src="https://raw.github.com/mrdoob/three.js/master/build/three.js"></script>
+	<script src="https://raw.github.com/mrdoob/three.js/master/examples/js/loaders/ColladaLoader.js"></script>
+
+	<script type="text/javascript">
+		var leavesAmmount = 10;
+		var arcCenter1 = 400
+		var arcCenter2 = 700;
+		var arcRadius = 200;
+		
+		$box = $("#box");
+		$box2 = $("#box2");
+		$box.css('top',arcCenter1+Math.cos(4)*arcRadius+'px');
+		$box.css('left',arcCenter2+Math.cos(4)*arcRadius+'px');//(arcCenter1+Math.cos(1)*arcRadius,arcCenter2+Math.sin(1)*arcRadius);
+		$box2.css('top',arcCenter1+Math.cos(5)*arcRadius+'px');
+		$box2.css('left',arcCenter2+Math.sin(5)*arcRadius+'px');//(arcCenter1+Math.cos(1)*arcRadius,arcCenter2+Math.sin(1)*arcRadius);
+		
+		for(x=0;x<10;x++){
+			console.log(x*10);
+			var div = '<div class="box" style="left:'+(x*10)+'"></div>';
+			$(div).appendTo("#body");
+			
+		}
+	</script>
+</html>

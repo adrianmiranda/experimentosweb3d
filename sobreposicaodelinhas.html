@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Sample Three.js</title>
+		<style>
+			#screen{
+				background: url('textures/dieantwoord.gif');
+				width: 500px;
+				height: 500px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="screen"></div>
+	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+	<script src="https://raw.github.com/mrdoob/three.js/master/build/three.js"></script>
+	<script src="https://raw.github.com/mrdoob/three.js/master/examples/js/loaders/ColladaLoader.js"></script>
+
+	<script type="text/javascript">
+		/*Setup renderer, lights and camera*/
+		renderer = new THREE.WebGLRenderer();
+		renderer.setSize(500,500);
+		document.getElementById('screen').appendChild(renderer.domElement);
+		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
+		camera.position.set(0, 0, 100);
+		camera.lookAt(new THREE.Vector3(-65, -30, 0));
+		scene = new THREE.Scene();
+		var light = new THREE.SpotLight();
+		light.position.set(170, 330, -160);
+		renderer.shadowMapEnabled = true;
+		light.castShadow = true;
+		scene.add(light);
+		
+		function v(x,y,z){ 
+        //return new THREE.Vector3(x,y,z);
+        return new THREE.Vector3(Math.random(),Math.random(),Math.random()).multiplyScalar(50); 
+      }
+      
+      
+      var lineMaterial = new THREE.LineBasicMaterial({
+      	color: 0xFFFFFF,
+      	opacity: 0.7,
+      	blending: THREE.AdditiveBlending,
+      	transparent: false,
+      	linewidth: 15
+      });
+      var lineGeometry = new THREE.Geometry();
+      lineGeometry.vertices.push(v(),v());
+      lineGeometry.vertices.push(v(),v());
+      var line = new THREE.Line(lineGeometry, lineMaterial);
+      line.dynamic = true;
+      scene.add(line);
+      animate(new Date().getTime());
+
+		function animate(t) {
+
+			line.geometry.verticesNeedUpdate = true;
+			line.geometry.vertices[0] = v();
+			line.geometry.vertices[1] = v();
+			line.geometry.vertices[2] = v();
+			line.geometry.vertices[3] = v();
+			camera.lookAt(v());
+			renderer.render(scene, camera);
+			window.requestAnimationFrame(animate, renderer.domElement);
+		};
+	</script>
+</html>
